@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - PROJECT_NAME=Sankalp - AI Recovery Companion
+      - DATABASE_URL=sqlite:///./sankalp.db
+      - SECRET_KEY=sankalp-production-secret-key-change-me
+      - AI_PROVIDER=demo
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - TINYFISH_API_KEY=${TINYFISH_API_KEY:-}
+      - TINYFISH_FETCH_URL=https://api.fetch.tinyfish.ai
+    volumes:
+      - sankalp-data:/app
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  sankalp-data:
