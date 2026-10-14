@@ -11,7 +11,22 @@ import {
   TinyFishStatus
 } from './types';
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api/v1';
+const getApiBase = () => {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    // Automatic fallback for Render deployments: sankalp-frontend.onrender.com -> sankalp-backend.onrender.com
+    if (window.location.hostname.includes('onrender.com')) {
+      const backendHost = window.location.hostname.replace('frontend', 'backend');
+      return `https://${backendHost}/api/v1`;
+    }
+    return `${window.location.origin}/api/v1`;
+  }
+  return 'http://127.0.0.1:8000/api/v1';
+};
+
+const API_BASE = getApiBase();
 
 class ApiClient {
   private token: string | null = null;
