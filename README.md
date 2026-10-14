@@ -5,6 +5,13 @@
 
 ---
 
+### 🌐 Live Production Deployment
+- **Live Web Application (Mobile & Desktop)**: [https://sankalp-frontend-dyy3.onrender.com](https://sankalp-frontend-dyy3.onrender.com)
+- **Deployment Platform**: Render.com (Global CDN + High Availability)
+- **Supported Devices**: Fully responsive on all Android, iOS, Windows, Mac, and Linux browsers.
+
+---
+
 ## 1. Problem Statement & Solution
 
 ### The Challenge
